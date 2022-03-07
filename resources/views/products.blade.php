@@ -76,7 +76,14 @@
             </div>
             <div class="row">
                 <div class="col-12 text-center">
-                    {!! $products->links('layouts.paginate') !!}
+                    @if(app('request')->has('search'))
+                      {!! $products->appends([
+                                'by'     => app('request')->input('by'),
+                                'search' => app('request')->input('search')
+                         ])->links('layouts.paginate') !!}
+                    @else
+                      {!! $products->links('layouts.paginate') !!}
+                    @endif
                 </div>
             </div>
         </div>

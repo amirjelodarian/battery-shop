@@ -1,12 +1,8 @@
 @if(isset($products))
     <p class="search-result">نتیجه جستجو : <span>{{ count($products) }}</span></p>
-    <div class="row">
-        <div class="col-12 text-center">
-            {!! $products->links('layouts.paginate') !!}
-        </div>
-    </div>
+    
     @foreach ($products as $product)
-        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 product">
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 product" style="margin-top: 25px">
             <div class="product-inside">
                 <div class="margin-b-10">
                     <a href="{{ route('product.show', $product->id) }}">
@@ -26,7 +22,12 @@
             </div>
         </div>
     @endforeach
-   
+    <br>
+    <div class="row" style="width: 100%">
+        <div class="col-12 text-center">
+            {!! $products->appends(['by' => $by, 'search' => $search])->links('layouts.paginate') !!}
+        </div>
+    </div>
 @else
     <p class="search-result-not-found">یافت نشد !</p>
 @endif

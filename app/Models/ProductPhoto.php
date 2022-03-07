@@ -42,7 +42,7 @@ class ProductPhoto extends Model
         return $this->path . $this->name;
     }
 
-    public function decidedByNewFileOrOldPic($request, $dirPath = 'img/products/')
+    public function decidedByNewFileOrOldPic($request, $dirPath = '/img/products/')
     {
         switch ($request)
         {

@@ -70,22 +70,30 @@ class ProductController extends Controller
     }
 
     public function searchByBrandOrCategory(Request $request)
-    {
-        if($request->input('by') == 'categories' && $request->input('search') !== null ){
+    {       
+        // post method is ajax
+        // get method is after search pagination
+        $search = $request->input('search');
+        $by = $request->input('by');
 
-            $categories = $request->input('search');
-            
-            $products = Product::with('categories')->whereHas('categories', function($query) use ($categories){
-                $query->whereIn('name', $categories);
-            })->paginate(1);
-
-            return view('productSearch', compact('products'));
+        if( $by == 'categories' && $search !== null ){ 
+            $products = Product::with('categories')->whereHas('categories', function($query) use ($search){
+                $query->whereIn('name', $search);
+            })->orderByDesc('id')->paginate(1);
         }
-//        if($request->input('by') == 'brands'){
-//
-//        }
-//        return response()->json(['errors' => 'Something Wrong !'], 200);
-//        return response()->json($request->except('_token'), 200);
+        if( $by == 'brands' && $search !== null ){
+            $products = Product::whereIn('brand', $search)->orderByDesc('id')->paginate(1);
+        }
+        // when have page means user go to next page when searching
+        if($request->has('page')){
+            $categories = Category::select('name')->get();
+            $brands = Product::pluck('brand');
+            return view('products', compact(['products', 'categories', 'brands', 'by', 'search']));
+        }
+        else
+            return view('productSearch', compact(['products','by','search']));
+
+       return response()->json(['errors' => 'Something Wrong !'], 200);
     }
 
     /**

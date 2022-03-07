@@ -20,6 +20,6 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::resource('/', 'HomeController');
-Route::post('product/searchByBrandOrCategory', 'ProductController@searchByBrandOrCategory')->name('product.searchByBrandOrCategory');
+Route::any('product/searchByBrandOrCategory', 'ProductController@searchByBrandOrCategory')->name('product.searchByBrandOrCategory');
 Route::get('home', 'HomeController@index');
 Route::resource('/product', 'ProductController');
