@@ -5031,6 +5031,17 @@ fieldset[disabled] .btn-theme {
     direction: rtl;
     position: absolute;
 }
+.product-img-box{
+    display: grid;
+    justify-items: center;
+}
+.product-brand{
+    position: absolute;
+    z-index: 1;
+    color: #308ce8;
+    font-family: IRANSansB;
+    top: 10px;
+}
 /* endoverright */
 
 

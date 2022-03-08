@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function index()
     {
         $categories = Category::select('name')->get();
-        $brands = Product::pluck('brand');
+        $brands = Product::distinct()->pluck('brand');
         $products = Product::with('categories', 'photo')->orderByDesc('id')->paginate(30);
         return view('products', compact(['categories',  'brands', 'products']));
     }
@@ -71,6 +71,7 @@ class ProductController extends Controller
 
     public function searchByBrandOrCategory(Request $request)
     {       
+        preg_
         // post method is ajax
         // get method is after search pagination
         $search = $request->input('search');
@@ -87,7 +88,7 @@ class ProductController extends Controller
         // when have page means user go to next page when searching
         if($request->has('page')){
             $categories = Category::select('name')->get();
-            $brands = Product::pluck('brand');
+            $brands = Product::distinct()->pluck('brand');
             return view('products', compact(['products', 'categories', 'brands', 'by', 'search']));
         }
         else

@@ -21,7 +21,7 @@
                             <div class="by-brand">
                                 <p>جستجو بر اساس برند باتری :</p>
                                 <div class="brand-wrapper" id="brands">
-                                    <select name="brands" class="form-control brand" multiple="multiple" onchange="search(this)">
+                                    <select name="brands" class="form-control brand" multiple="multiple" onchange="search(this, 'brand')">
                                         @foreach($brands as $brand)
                                             <option value="{{ $brand }}">{{ $brand }}</option>
                                         @endforeach
@@ -33,7 +33,7 @@
                             <div class="by-category">
                                 <p>جستجو بر اساس مدل خودرو :</p>
                                 <div class="category-wrapper" id="categories">
-                                    <select name="categories"  class="form-control category" multiple="multiple" onchange="search(this)">
+                                    <select name="categories"  class="form-control category" multiple="multiple" onchange="search(this, 'category')">
                                         @foreach($categories as $category)
                                             <option value="{{ $category->name }}">{{ $category->name }}</option>
                                         @endforeach
@@ -52,7 +52,8 @@
                         <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 product">
                             <div class="product-inside">
                                 <div class="margin-b-10">
-                                    <a href="{{ route('product.show', $product->id) }}">
+                                    <a class="product-img-box" href="{{ route('product.show', $product->id) }}">
+                                        <span class="product-brand">{{ $product->brand }}</span>
                                         <img class="img-responsive product-img" src="{{ $product->photo->fullPath() }}" alt="Latest Products Image">
                                     </a>
                                 </div>
@@ -100,7 +101,7 @@
                         allowClear: true,
                     });
                 });
-                function search(div) {
+                function search(div, divClassName) {
                     const allValues = [];
                     const selectOption = document.querySelector('#' + div.parentElement.id + ' .select2-selection__rendered');
                     for (let index = 1; index < selectOption.childElementCount; index++)
@@ -116,7 +117,7 @@
                             search:  allValues
                         },
                         success: function (data){
-                            if($('.category').val() == ""){
+                            if($('.' + divClassName).val() == ""){
                                 $("#main-product").show();
                                 $("#search-product").hide();
                             } else{

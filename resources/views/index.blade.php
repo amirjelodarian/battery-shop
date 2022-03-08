@@ -153,7 +153,8 @@
                     <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 product">
                         <div class="product-inside">
                             <div class="margin-b-10">
-                                <a href="{{ route('product.show', $product->id) }}">
+                                <a class="product-img-box" href="{{ route('product.show', $product->id) }}">
+                                    <span class="product-brand">{{ $product->brand }}</span>
                                     <img class="img-responsive product-img" src="{{ $product->photo->fullPath() }}" alt="Latest Products Image">
                                 </a>
                             </div>

@@ -13,7 +13,16 @@
     <link rel="shortcut icon" href="favicon.ico"/>
     @yield('head')
 
-    @php $authPaths = ['login', 'register', 'password/confirm', 'password/email', 'password/reset', 'product/create', 'product']; @endphp
+    @php $authPaths = [
+        'login', 
+        'register',
+        'password/confirm',
+        'password/email',
+        'password/reset',
+        'product/create',
+        'product',
+        'product/searchByBrandOrCategory'
+    ]; @endphp
     @if(array_intersect($authPaths, (array)\Illuminate\Support\Facades\Route::getCurrentRoute()->uri()))
         <style>
             .header .nav-item-child{
@@ -103,27 +112,27 @@
         <div class="swiper-wrapper">
 
             <div class="swiper-slide brand-logo">
-                <img class="swiper-clients-img" src="img/clients/varian.png" alt="Clients Logo">
+                <img class="swiper-clients-img" src="/img/clients/varian.png" alt="Clients Logo">
             </div>
 
             <div class="swiper-slide brand-logo">
-                <img class="swiper-clients-img" src="img/clients/orbital.png" alt="Clients Logo">
+                <img class="swiper-clients-img" src="/img/clients/orbital.png" alt="Clients Logo">
             </div>
 
             <div class="swiper-slide brand-logo">
-                <img class="swiper-clients-img" src="img/clients/saba.png" alt="Clients Logo">
+                <img class="swiper-clients-img" src="/img/clients/saba.png" alt="Clients Logo">
             </div>
 
             <div class="swiper-slide brand-logo">
-                <img class="swiper-clients-img" src="img/clients/varian.png" alt="Clients Logo">
+                <img class="swiper-clients-img" src="/img/clients/varian.png" alt="Clients Logo">
             </div>
 
             <div class="swiper-slide brand-logo">
-                <img class="swiper-clients-img" src="img/clients/suzuki.png" alt="Clients Logo">
+                <img class="swiper-clients-img" src="/img/clients/suzuki.png" alt="Clients Logo">
             </div>
 
             <div class="swiper-slide brand-logo">
-                <img class="swiper-clients-img" src="img/clients/sepahan.png" alt="Clients Logo">
+                <img class="swiper-clients-img" src="/img/clients/sepahan.png" alt="Clients Logo">
             </div>
         </div>
         <!-- End Swiper Wrapper -->
