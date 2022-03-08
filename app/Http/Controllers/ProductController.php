@@ -71,7 +71,6 @@ class ProductController extends Controller
 
     public function searchByBrandOrCategory(Request $request)
     {       
-        preg_
         // post method is ajax
         // get method is after search pagination
         $search = $request->input('search');
