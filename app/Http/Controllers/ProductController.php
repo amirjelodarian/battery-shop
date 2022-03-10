@@ -84,7 +84,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('singleProduct', resolve(ProductRepository::class)->show($id));
     }
 
     /**

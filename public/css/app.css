@@ -3782,6 +3782,22 @@ fieldset[disabled] .btn-theme {
         display: inline-block !important;
         float: right;
     }
+    .image img{
+        transform: scale(1.1) !important;
+    }
+    .image img:hover{
+        transform: scale(1.2) !important;
+    }
+    .battery-order-call p{
+        position: absolute;
+        right: -67px;
+        font-size: 17px !important;
+    }
+    .battery-order-call ul{
+        margin-top: 66px;
+        position: absolute;
+        right: -16px;
+    }
     /* end overright */
 }
 
@@ -4705,6 +4721,7 @@ fieldset[disabled] .btn-theme {
     text-align: center;
     font-family: IRANSansB;
     color: #308ce8;
+    font-size: 20px;
 }
 
 .product-car {
@@ -4755,7 +4772,21 @@ fieldset[disabled] .btn-theme {
     padding: 4px;
     font-size: 14px;
 }
-
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+.loader-outside{
+    width: 100%;
+    text-align: center;
+    text-align: -moz-center;
+    text-align: -webkit-center;
+}
 .logout-btn {
     background: none;
     border: none;
@@ -5043,6 +5074,85 @@ fieldset[disabled] .btn-theme {
     color: #308ce8;
     font-family: IRANSansB;
     top: 10px;
+}
+.single-product{
+    margin-top: 120px;
+}
+.image{
+    text-align: center;
+    float: right !important;
+}
+.image img{
+    transition: .5s;
+    height: 310px;
+    width: 320px;
+    margin-top: 26px;
+    opacity: 0.9;
+    border-radius: 6.2px;
+    filter: drop-shadow(4px 12px 8px black);
+    transform: scale(1);
+}
+.image img:hover{
+    transition: .5s;
+    opacity: 1;
+    filter: drop-shadow(4px 20px 12px black);
+    transform: scale(1.1);
+}
+.battery-details{
+    direction: rtl;
+    text-align: right;
+    font-family: IRANSansB;
+    float: right !important;
+}
+.battery-details h1,.battery-details h3{
+    font-family: IRANSansB;
+}
+.battery-details h1{
+    color: #ff0000;
+}
+.battery-details h3{
+    color: #308ce8;
+}
+.battery-details .title{
+    font-family: IRANSansB;
+    color: #ff0000;
+}
+.battery-details .title-answer{
+    font-family: IRANSansB;
+    color: #308ce8;
+}
+.battery-order-call{
+    text-align: center;
+    margin-top: 108px;
+}
+.battery-order-call p{
+    font-family: IRANSansB;
+    color: #ff0000;
+    font-size: 25px;
+    line-height: 49px;
+}
+.battery-order-call li{
+    font-family: IRANSansB !important;
+    font-size: 23px;
+    color: #308ce8;
+}
+.battery-order-call i{
+    font-weight: bold;
+    color: black !important;
+}
+.battery-order-call-family{
+    position: relative !important;
+    top: 111px;
+    color: gray !important;
+}
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 /* endoverright */
 

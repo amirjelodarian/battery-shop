@@ -43,6 +43,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="loader-outside">
+                    <div class="loader"></div>
+                </div>
                 <div class="row latest-products" id="search-product">
                
                 </div>
@@ -88,13 +91,11 @@
                 </div>
             </div>
         </div>
-        <div class="loader-outside">
-            <div class="loader"></div>
-        </div>
         <!-- End Latest Products -->
         @section('footerjs')
             <script>
                 $(document).ready(function() {
+                    $('.loader-outside').hide();
                     $('.brand').select2({
                         placeholder: 'برند انتخاب کنید',
                         allowClear: true,
@@ -113,7 +114,7 @@
                     if (allValues != ''){
                         $.ajax({
                             method: "POST",
-                             beforeSend: function() {
+                            beforeSend: function() {
                                 $('.loader-outside').show();
                             },
                             url: "{{ route('product.search') }}",

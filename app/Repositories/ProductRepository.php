@@ -54,6 +54,13 @@ class ProductRepository
 
    }
 
+   public function show($id)
+   {
+      return [
+         'product' => Product::whereId($id)->with('categories', 'photo')->firstOrFail()
+      ];
+   }
+
    // search by category or brand
    public function search($paginate = 30)
    {

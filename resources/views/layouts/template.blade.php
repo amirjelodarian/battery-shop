@@ -12,21 +12,10 @@
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="favicon.ico"/>
     @yield('head')
-
-    @php $authPaths = [
-        'login', 
-        'register',
-        'password/confirm',
-        'password/email',
-        'password/reset',
-        'product/create',
-        'product',
-        'product/search'
-    ]; @endphp
-    @if(array_intersect($authPaths, (array)\Illuminate\Support\Facades\Route::getCurrentRoute()->uri()))
+    @if((string)\Illuminate\Support\Facades\Route::getCurrentRoute()->uri() !== "/"))
         <style>
             .header .nav-item-child{
-                color: black;
+                color: #515769;
             }
         </style>
     @endif
