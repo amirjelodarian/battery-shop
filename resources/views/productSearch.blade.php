@@ -1,6 +1,10 @@
 @if(isset($products))
     <p class="search-result">نتیجه جستجو : <span>{{ count($products) }}</span></p>
-    
+    <div class="row" style="width: 100%;margin-top: 10px;margin-bottom:-35px">
+        <div class="col-12 text-center">
+            {!! $products->appends(['by' => $by, 'search' => $search])->links('layouts.paginate') !!}
+        </div>
+    </div><br>
     @foreach ($products as $product)
         <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 product" style="margin-top: 25px">
             <div class="product-inside">
@@ -23,12 +27,7 @@
             </div>
         </div>
     @endforeach
-    <br>
-    <div class="row" style="width: 100%">
-        <div class="col-12 text-center">
-            {!! $products->appends(['by' => $by, 'search' => $search])->links('layouts.paginate') !!}
-        </div>
-    </div>
+   
 @else
     <p class="search-result-not-found">یافت نشد !</p>
 @endif

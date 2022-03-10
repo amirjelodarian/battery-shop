@@ -32,8 +32,9 @@ class Category extends Model
 
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = EnFa($value);
+        $this->attributes['name'] = EnFa($value, 'fa');
     }
+    
     public function getNameAttribute($value)
     {
         return EnFa($value, 'fa');

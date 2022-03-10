@@ -16,6 +16,15 @@ class StoreProductRequest extends FormRequest
         return true;
     }
 
+    public function all($keys = NULL) 
+    {
+        $attributes = parent::all();
+        
+        $attributes['price'] = EnFa($attributes['price']);
+        
+        return $attributes;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -30,8 +39,8 @@ class StoreProductRequest extends FormRequest
             'for_what'           => 'required|min:2|max:255',
             'warranty'           => 'required|min:2|max:255',
             'title'              => 'required|min:2|max:255',
-            'price'              => 'required|min:2|max:255',
-            'category.*'         => 'required|min:2|max:255',
+            'price'              => 'required|numeric|min:1000|max:99999999',
+            'category'           => 'required|min:1|max:255',
             'product_image'      => 'required_if:product_image_name,==,null|mimes:jpeg,jpg,png|max:2048',
             'product_image_name' => 'required_if:product_image,==,null|exists:product_photos,name',
         ];

@@ -21,7 +21,7 @@
         'password/reset',
         'product/create',
         'product',
-        'product/searchByBrandOrCategory'
+        'product/search'
     ]; @endphp
     @if(array_intersect($authPaths, (array)\Illuminate\Support\Facades\Route::getCurrentRoute()->uri()))
         <style>

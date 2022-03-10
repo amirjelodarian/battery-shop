@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Repositories\ProductRepository;
 
 class ProductController extends Controller
 {
@@ -25,10 +26,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories = Category::select('name')->get();
-        $brands = Product::distinct()->pluck('brand');
-        $products = Product::with('categories', 'photo')->orderByDesc('id')->paginate(30);
-        return view('products', compact(['categories',  'brands', 'products']));
+        return view('products', resolve(ProductRepository::class)->index());
     }
 
     /**
@@ -38,9 +36,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::select('name')->get();
-        $images = ProductPhoto::select('path','name')->get();
-        return view('createProduct', compact(['categories', 'images']));
+        return view('createProduct', resolve(ProductRepository::class)->create());
     }
 
     /**
@@ -49,51 +45,35 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request, ProductPhoto $productPhoto, Category $category)
+    public function store(StoreProductRequest $request)
     {
-        $exception =  DB::transaction(function () use ($request, $productPhoto, $category){
-            // add photo_id to request for FK product
-            $request->request->add(['product_photo_id' => $productPhoto->decidedByNewFileOrOldPic($request)]);
-            $product = auth()->user()->products()->create(
-                $request->except('product_image_name', 'product_image', 'category')
-            );
-            // store categories and assign to category_product table
-            $category->storeCategories($request->input('category'), $product);
-        });
-        // upload file if exists in input and
-        // transaction is ok
-        if (!$exception && $productPhoto->hasFile)
-            $request->file('product_image')->move($productPhoto->dirPath, $productPhoto->newUniqueFileName);
-
-        return redirect()->back()->withErrors('Successfully Created');
-
+        return resolve(ProductRepository::class)->store($request);
     }
 
-    public function searchByBrandOrCategory(Request $request)
+    public function search(Request $request)
     {       
         // post method is ajax
         // get method is after search pagination
-        $search = $request->input('search');
-        $by = $request->input('by');
-
-        if( $by == 'categories' && $search !== null ){ 
-            $products = Product::with('categories')->whereHas('categories', function($query) use ($search){
-                $query->whereIn('name', $search);
-            })->orderByDesc('id')->paginate(1);
-        }
-        if( $by == 'brands' && $search !== null ){
-            $products = Product::whereIn('brand', $search)->orderByDesc('id')->paginate(1);
-        }
+        $products = resolve(ProductRepository::class)->search();
         // when have page means user go to next page when searching
-        if($request->has('page')){
-            $categories = Category::select('name')->get();
-            $brands = Product::distinct()->pluck('brand');
-            return view('products', compact(['products', 'categories', 'brands', 'by', 'search']));
-        }
-        else
-            return view('productSearch', compact(['products','by','search']));
 
-       return response()->json(['errors' => 'Something Wrong !'], 200);
+        if($request->has('page') && $products){
+            $CP = resolve(ProductRepository::class)->searchUtil();
+            return view('products', [
+                'products'   => $products, 
+                'categories' => $CP['categories'], 
+                'brands'     => $CP['brands'],
+                'by'         => request('by'),
+                'search'     => request('search')
+            ]);
+        }
+        if($products)
+            return view('productSearch', [
+                'products'   => $products, 
+                'by'         => request('by'),
+                'search'     => request('search')
+            ]);
+        
     }
 
     /**

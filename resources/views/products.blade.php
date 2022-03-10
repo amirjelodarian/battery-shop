@@ -88,6 +88,9 @@
                 </div>
             </div>
         </div>
+        <div class="loader-outside">
+            <div class="loader"></div>
+        </div>
         <!-- End Latest Products -->
         @section('footerjs')
             <script>
@@ -107,26 +110,34 @@
                     for (let index = 1; index < selectOption.childElementCount; index++)
                         selectOption.childNodes[index].title !== '' ?
                         allValues.push(selectOption.childNodes[index].title) : null;
-
-                    $.ajax({
-                        method: "POST",
-                        url: "{{ route('product.searchByBrandOrCategory') }}",
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            by: div.parentElement.id,
-                            search:  allValues
-                        },
-                        success: function (data){
-                            if($('.' + divClassName).val() == ""){
-                                $("#main-product").show();
-                                $("#search-product").hide();
-                            } else{
-                                $("#main-product").hide();
+                    if (allValues != ''){
+                        $.ajax({
+                            method: "POST",
+                             beforeSend: function() {
+                                $('.loader-outside').show();
+                            },
+                            url: "{{ route('product.search') }}",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                by: div.parentElement.id,
+                                search:  allValues
+                            },
+                            success: function (data){
+                                $("#main-product,.loader-outside").hide();
+                                $("#search-product").show();
                                 $("#search-product").html(data);
-                            }
-                            
-                        },
-                    });
+                                if (data == "" || data == null){
+                                  $("#main-product").show();
+                                }
+                        
+                                
+                            },
+                        });
+                    }
+                    else{
+                        $("#main-product").show();
+                        $("#search-product").hide();
+                    }
                 }
             </script>
         @stop

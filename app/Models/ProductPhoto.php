@@ -22,8 +22,9 @@ class ProductPhoto extends Model
     {
         $this->newUniqueFileName = $this->newUniqueFileName($file);
         $this->dirPath = $dirPath;
+        $dirPathForDB = '/' . $dirPath; 
         $photo = ProductPhoto::create([
-            'path' => $this->dirPath,
+            'path' => $dirPathForDB,
             'name' => $this->newUniqueFileName
         ]);
         return $photo->id;
@@ -42,7 +43,7 @@ class ProductPhoto extends Model
         return $this->path . $this->name;
     }
 
-    public function decidedByNewFileOrOldPic($request, $dirPath = '/img/products/')
+    public function decidedByNewFileOrOldPic($request, $dirPath = 'img/products/')
     {
         switch ($request)
         {
@@ -67,6 +68,9 @@ class ProductPhoto extends Model
                     )->first();
                     $this->hasFile = false;
                     return $photo->id;
+                break;
+            default:
+                    return false;
                 break;
         }
     }
