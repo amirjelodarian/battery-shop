@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Repositories;
 use App\Models\Product;
 use App\Models\Category;
@@ -32,7 +32,7 @@ class ProductRepository
       $category = new Category;
 
       $exception = DB::transaction(function () use ($request, $productPhoto, $category){
-         
+
          // add photo_id to request for FK product
          $photo = $productPhoto->decidedByNewFileOrOldPic($request);
          if($photo){
@@ -43,7 +43,7 @@ class ProductRepository
             // store categories and assign to category_product table
             $category->storeCategories($request->input('category'), $product);
          }
-         return redirect()->back()->withErrors('Select image !');   
+         return redirect()->back()->withErrors('Select image !');
       });
       // upload file if exists in input and
       // transaction is ok
@@ -55,6 +55,13 @@ class ProductRepository
    }
 
    public function show($id)
+   {
+      return [
+         'product' => Product::whereId($id)->with('categories', 'photo')->firstOrFail()
+      ];
+   }
+
+   public function edit($id)
    {
       return [
          'product' => Product::whereId($id)->with('categories', 'photo')->firstOrFail()

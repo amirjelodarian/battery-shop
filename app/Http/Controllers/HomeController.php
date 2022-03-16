@@ -15,8 +15,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $lastProducts = Product::with('categories', 'photo')->orderByDesc('id')->limit(6)->get();
-        return view('index', compact('lastProducts'));
+        $products = Product::with('categories', 'photo')->orderByDesc('id')->limit(6)->get();
+        return view('index', compact('products'));
     }
 
     /**

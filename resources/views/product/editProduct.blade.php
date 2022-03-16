@@ -8,12 +8,12 @@
          </div>
          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 battery-details">
             <h1>{{ $product->title }}</h1>
-            <h3>{{ $product->price }}</h3>
+            <div class="product-price"><span>قیمت : </span>{{ $product->price }}</div>
             <hr />
             <p>
-               <span class="title">گارانتی :</span>&nbsp;<span class="title-answer">{{ $product->warranty }}</span>
+               <span class="title">گارانتی :</span>&nbsp;<input class="title-answer" value="{{ $product->warranty }}" />
             </p>
-            
+
             <p>
                <span class="title">نام برند :</span>&nbsp;<span class="title-answer">{{ $product->brand }}</span>
             </p>
@@ -33,15 +33,15 @@
             <p>
                <span class="title">شرکت سازنده :</span>&nbsp;<span class="title-answer">{{ $product->company }}</span>
             </p>
-           
-         </div>     
+
+         </div>
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 battery-order-call">
                <p>جهت سفارش با این شماره تماس بگیرید</p>
                <ul class="list-unstyled contact-list">
                   <li><i class="margin-r-10 color-base icon-call-out"></i> ۰۹۲۱ ۵۸۲ ۳۹۵۱</li>
                </ul>
                <p class="battery-order-call-family">جلوداریان</p>
-          </div>  
+          </div>
       </div>
      </div>
    </div>

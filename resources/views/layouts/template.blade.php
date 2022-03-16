@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="fa">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title>FlameOnePage Free Template by FairTech</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -12,7 +11,8 @@
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="favicon.ico"/>
     @yield('head')
-    @if((string)\Illuminate\Support\Facades\Route::getCurrentRoute()->uri() !== "/"))
+    @php $homePath = ["/", "", "home"]; @endphp
+    @if(! array_intersect($homePath, (array)\Illuminate\Support\Facades\Route::getCurrentRoute()->uri()))
         <style>
             .header .nav-item-child{
                 color: #515769;
@@ -20,7 +20,6 @@
         </style>
     @endif
 </head>
-
 
 <body id="body" data-spy="scroll" data-target=".header">
 
@@ -42,14 +41,6 @@
             </div>
 
             <div class="collapse navbar-collapse nav-collapse">
-
-                <!--div class="language-switcher">
-                  <ul class="nav-lang">
-                    <li><a class="active" href="#">EN</a></li>
-                    <li><a href="#">DE</a></li>
-                    <li><a href="#">FR</a></li>
-                  </ul>
-                </div--->
 
                 <div class="menu-container">
                     <ul class="nav navbar-nav navbar-nav-right">
@@ -169,7 +160,7 @@
 <!-- End Contact -->
 <!--========== END PAGE LAYOUT ==========-->
 <!--========== FOOTER ==========-->
-<footer class="footer">
+<footer class="footer"  data-aos="fade-up">
     <!-- Links -->
     <div class="section-seperator">
         <div class="content-md container">
@@ -237,6 +228,7 @@
 <script src="{{ asset('/js/components/wow.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/components/swiper.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/components/masonry.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/aos.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/app.js') }}" type="text/javascript"></script>
 @yield('footerjs')
 

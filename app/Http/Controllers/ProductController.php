@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('products', resolve(ProductRepository::class)->index());
+        return view('product.products', resolve(ProductRepository::class)->index());
     }
 
     /**
@@ -36,7 +36,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('createProduct', resolve(ProductRepository::class)->create());
+        return view('product.createProduct', resolve(ProductRepository::class)->create());
     }
 
     /**
@@ -51,7 +51,7 @@ class ProductController extends Controller
     }
 
     public function search(Request $request)
-    {       
+    {
         // post method is ajax
         // get method is after search pagination
         $products = resolve(ProductRepository::class)->search();
@@ -59,21 +59,21 @@ class ProductController extends Controller
 
         if($request->has('page') && $products){
             $CP = resolve(ProductRepository::class)->searchUtil();
-            return view('products', [
-                'products'   => $products, 
-                'categories' => $CP['categories'], 
+            return view('product.products', [
+                'products'   => $products,
+                'categories' => $CP['categories'],
                 'brands'     => $CP['brands'],
                 'by'         => request('by'),
                 'search'     => request('search')
             ]);
         }
         if($products)
-            return view('productSearch', [
-                'products'   => $products, 
+            return view('product.productSearch', [
+                'products'   => $products,
                 'by'         => request('by'),
                 'search'     => request('search')
             ]);
-        
+
     }
 
     /**
@@ -84,7 +84,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return view('singleProduct', resolve(ProductRepository::class)->show($id));
+        return view('product.singleProduct', resolve(ProductRepository::class)->show($id));
     }
 
     /**
@@ -95,7 +95,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('product.editProduct', resolve(ProductRepository::class)->edit($id));
     }
 
     /**

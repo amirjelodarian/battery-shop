@@ -49,16 +49,15 @@ class User extends Authenticatable
     // $user->hasRole("administrator")
 
     public function hasRole($role){
-        if(is_string($role)){
+        if(is_string($role))
             return $this->roles->contains('name', $role);
-        }
-
         return !! $role->intersect($this->roles)->count();
     }
 
     public function assignRole($role){
         $this->roles()->sync(Role::whereName($role)->firstOrFail());
     }
+
     public function takeRole($role){
         $this->roles()->detach(Role::whereName($role)->firstOrFail());
     }
