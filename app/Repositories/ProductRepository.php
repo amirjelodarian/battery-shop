@@ -4,7 +4,9 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductPhoto;
 use App\Http\Requests\StoreProductRequest;
+use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ProductRepository
 {
@@ -30,28 +32,33 @@ class ProductRepository
    {
       $productPhoto = new ProductPhoto;
       $category = new Category;
-
-      $exception = DB::transaction(function () use ($request, $productPhoto, $category){
-
+      try{
+        DB::beginTransaction();
          // add photo_id to request for FK product
-         $photo = $productPhoto->decidedByNewFileOrOldPic($request);
-         if($photo){
-            $request->request->add(['product_photo_id' => $photo]);
+         $photoId = $productPhoto->decidedByNewFileOrOldPic($request);
+         if($photoId){
+
+            $request->request->add(['product_photo_id' => $photoId]);
             $product = auth()->user()->products()->create(
                $request->except('product_image_name', 'product_image', 'category')
             );
             // store categories and assign to category_product table
             $category->storeCategories($request->input('category'), $product);
          }
-         return redirect()->back()->withErrors('Select image !');
-      });
-      // upload file if exists in input and
-      // transaction is ok
-      if ($exception && $productPhoto->hasFile)
-         $request->file('product_image')->move($productPhoto->dirPath, $productPhoto->newUniqueFileName);
+         // upload file if exists in input and
+         if($productPhoto->hasFile)
+            $productPhoto->resizeAndUpload($request->file('product_image'));
+        DB::commit();
+        // transaction is ok
+        return redirect()->back()->withErrors('Successfully Created');
 
-      return redirect()->back()->withErrors('Successfully Created');
-
+      }
+      catch(Exception $e){
+        DB::rollBack();
+        if(File::exists(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName)))
+            File::delete(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName));
+        return redirect()->back()->withErrors('Select image !');
+      }
    }
 
    public function show($id)
