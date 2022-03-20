@@ -1,7 +1,7 @@
 @extends('layouts.template')
 @section('main')
 
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-aos="fade-up">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-aos="fade-down">
             <div class="container">
                 <ol class="carousel-indicators">
                     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -40,13 +40,13 @@
 
         <!--========== PAGE LAYOUT ==========-->
         <!-- About -->
-        <div id="about" data-aos="fade-up">
+        <div id="about">
 
             <div class="content-lg container">
                 <!-- Masonry Grid -->
                 <div class="masonry-grid row">
                     <div class="masonry-grid-sizer col-xs-6 col-sm-6 col-md-1"></div>
-                    <div class="masonry-grid-item col-xs-12 col-sm-6 col-md-4 sm-margin-b-30">
+                    <div class="masonry-grid-item col-xs-12 col-sm-6 col-md-4 sm-margin-b-30" data-aos="fade-up">
                       <img class="full-width img-responsive wow fadeInUp" src="img/widgets/about-milad-battrey-1.png" alt="Portfolio Image" data-wow-duration=".3" data-wow-delay=".2s">
                         <div class="margin-b-60">
                             <p class="about-title">ارسال و نصب رایگان باطری ماشین</p>
@@ -54,24 +54,24 @@
                         </div>
                     </div>
                     <div class="masonry-grid-item col-xs-12 col-sm-6 col-md-4">
+                        <img class="full-width img-responsive wow fadeInUp" src="img/widgets/about-milad-battrey-3.png" alt="Portfolio Image" data-wow-duration=".3" data-wow-delay=".4s">
+                       <div class="margin-t-60 margin-b-60">
+                           <p class="about-title">جستجو و انتخاب باتری ماشین</p>
+                           <p>باتری مناسب خودروی خود را با توجه به برند، مشخصات فنی و قیمت آن انتخاب نمایید.</p>
+                       </div>
+                   </div>
+                    <div class="masonry-grid-item col-xs-12 col-sm-6 col-md-4" data-aos="fade-up">
                          <img class="full-width img-responsive wow fadeInUp" src="img/widgets/about-milad-battrey-2.png" alt="Portfolio Image" data-wow-duration=".3" data-wow-delay=".3s">
                         <div class="margin-b-60">
                           <p class="about-title">ثبت سفارش تلفنی باتری ماشین</p>
                           <p>سفارش خود را به صورت تلفنی و شبانه روزی و در تمام ایام سال ثبت نمایید.</p>
                         </div>
                     </div>
-                    <div class="masonry-grid-item col-xs-12 col-sm-6 col-md-4">
-                         <img class="full-width img-responsive wow fadeInUp" src="img/widgets/about-milad-battrey-3.png" alt="Portfolio Image" data-wow-duration=".3" data-wow-delay=".4s">
-                        <div class="margin-t-60 margin-b-60">
-                            <p class="about-title">جستجو و انتخاب باتری ماشین</p>
-                            <p>باتری مناسب خودروی خود را با توجه به برند، مشخصات فنی و قیمت آن انتخاب نمایید.</p>
-                        </div>
-                    </div>
 				</div>
                 <!-- End Masonry Grid -->
             </div>
 
-            <div class="bg-color-sky-light" data-aos="fade-up" id="why-us">
+            <div class="bg-color-sky-light" data-aos="fade-down" id="why-us">
                 <div class="content-lg container">
                     <div class="row">
                         <div class="col-md-5 col-sm-5 md-margin-b-60">

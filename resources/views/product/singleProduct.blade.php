@@ -36,7 +36,7 @@
 
          </div>
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 battery-order-call">
-               <p>جهت سفارش با این شماره تماس بگیرید</p>
+               <p class="call-for-order-text">جهت سفارش با این شماره تماس بگیرید</p>
                <ul class="list-unstyled contact-list">
                   <li><i class="margin-r-10 color-base icon-call-out"></i> ۰۹۲۱ ۵۸۲ ۳۹۵۱</li>
                </ul>

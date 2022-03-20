@@ -387,10 +387,24 @@ fieldset[disabled] .btn-theme {
     background: #fff;
     margin-top: 50px;
 }
-
-@media (max-width:768px) {
+@media screen and (max-width: 472px) {
+    .battery-order-call p{
+        font-size: 18px !important;
+    }
+    .by-category p, .by-brand p{
+        font-size: 11px;
+    }
+    .select2-container--default .select2-search--inline .select2-search__field{
+        font-size: 13px !important;
+    }
+}
+@media screen and (max-width:768px) {
     .pricing {
         margin-top: 0;
+    }
+    .image img{
+        opacity: 1 !important;
+        transform: scale(1.1) !important;
     }
 }
 
@@ -866,6 +880,9 @@ fieldset[disabled] .btn-theme {
         background-color: transparent;
         border: 0;
         box-shadow: none;
+    }
+    .battery-order-call-family{
+        top: 0px !important;
     }
     /* end overright */
 }
@@ -1897,7 +1914,7 @@ fieldset[disabled] .btn-theme {
     color: #777984;
 }
 .latest-products {
-    padding: 0px 10px;
+    padding: 0px 5px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -2261,6 +2278,7 @@ fieldset[disabled] .btn-theme {
     border-radius: 6.2px;
     filter: drop-shadow(4px 12px 8px black);
     transform: scale(1);
+    animation: boxshadow ease 3s infinite;
 }
 .image img:hover{
     transition: .5s;
@@ -2318,5 +2336,8 @@ fieldset[disabled] .btn-theme {
     top: 111px;
     color: gray !important;
 }
-
+.call-for-order-text{
+    -webkit-animation: fontlightbold .7s ease infinite; /* Safari */
+    animation: fontlightbold .7s ease infinite;
+}
 /* endoverright */
