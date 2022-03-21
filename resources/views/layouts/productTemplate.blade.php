@@ -1,5 +1,5 @@
 @foreach ($products as $product)
-<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 product" style="margin-top: 25px" data-aos="{{ rndAnim() }}">
+<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 product" style="margin-top: 25px">
     <div class="product-inside">
         <div class="margin-b-10">
             <a class="product-img-box" href="{{ route('product.show', $product->id) }}">

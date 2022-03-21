@@ -17,7 +17,8 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:storeProduct')->only('create','store');
+        $this->middleware('can:storeProduct')->only('create', 'store');
+        $this->middleware('can:editProduct')->only('edit');
     }
     /**
      * Display a listing of the resource.

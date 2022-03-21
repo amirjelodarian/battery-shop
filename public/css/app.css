@@ -5211,6 +5211,8 @@ fieldset[disabled] .btn-theme {
 .battery-details .title{
     font-family: IRANSansB;
     color: #ff0000;
+    display: inline-grid;
+    grid-template-columns: 92px;
 }
 .battery-details .title-answer{
     font-family: IRANSansB;
@@ -5243,6 +5245,15 @@ fieldset[disabled] .btn-theme {
 .call-for-order-text{
     -webkit-animation: fontlightbold .7s ease infinite; /* Safari */
     animation: fontlightbold .7s ease infinite;
+}
+.edit-product input{
+    text-align: right;
+    direction: rtl;
+    display: inline-grid;
+    grid-template-columns: minmax(100px, 210px);
+    padding: 4px 6px;
+    border: .5px solid #308ce8;
+    border-radius: 3.2px;
 }
 /* endoverright */
 

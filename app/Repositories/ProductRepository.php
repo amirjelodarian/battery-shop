@@ -71,7 +71,9 @@ class ProductRepository
    public function edit($id)
    {
       return [
-         'product' => Product::whereId($id)->with('categories', 'photo')->firstOrFail()
+        'categories' => Category::select('name')->get(),
+        'images'     => ProductPhoto::select('path','name')->get(),
+        'product' => Product::whereId($id)->with('categories', 'photo')->firstOrFail()
       ];
    }
 

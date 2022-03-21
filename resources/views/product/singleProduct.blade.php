@@ -1,5 +1,6 @@
 @extends('layouts.template')
 @section('main')
+
    <div class="single-product">
      <div class="container">
       <div class="row">
@@ -24,7 +25,7 @@
                <span class="title">رده خودرو :</span>&nbsp;<span class="title-answer">{{ $product->for_what }}</span>
             </p>
             <p>
-               <span class="title">مناسب برای :</span>&nbsp;<span class="title-answer">
+               <span class="title">مناسب برای :</span><span class="title-answer">
                      @foreach($product->categories as $category)
                         ({{ $category->name }})
                      @endforeach
@@ -33,7 +34,11 @@
             <p>
                <span class="title">شرکت سازنده :</span>&nbsp;<span class="title-answer">{{ $product->company }}</span>
             </p>
-
+            @can('editProduct')
+                <a href="{{ route('product.edit', $product->id) }}">
+                    <button class="btn edit-btn">ویرایش</button>
+                </a>
+            @endcan
          </div>
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 battery-order-call">
                <p class="call-for-order-text">جهت سفارش با این شماره تماس بگیرید</p>
