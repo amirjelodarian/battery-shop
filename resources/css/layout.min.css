@@ -2342,13 +2342,26 @@ fieldset[disabled] .btn-theme {
     -webkit-animation: fontlightbold .7s ease infinite; /* Safari */
     animation: fontlightbold .7s ease infinite;
 }
-.edit-product input{
+.edit-product input, .edit-product select{
     text-align: right;
     direction: rtl;
-    display: inline-grid;
-    grid-template-columns: minmax(100px, 210px);
+    max-width: 180px;
     padding: 4px 6px;
     border: .5px solid #308ce8;
     border-radius: 3.2px;
+}
+.edit-product select{
+    display: inline-block;
+    padding: 0px;
+    margin-left: -5px;
+}
+.edit-product #choose_image{
+    border: none;
+    padding: 6px;
+    direction: rtl;
+    margin-top: 40px;
+}
+.edit-product-title{
+    max-width: 280px !important;
 }
 /* endoverright */

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -42,7 +43,7 @@ class Product extends Model
 
     public function setPriceAttribute($value)
     {
-        $this->attributes['price'] = EnFa($value);
+        $this->attributes['price'] = Str::replace(',','',EnFa($value));
     }
     public function getPriceAttribute($value)
     {

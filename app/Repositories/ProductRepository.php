@@ -57,7 +57,7 @@ class ProductRepository
         DB::rollBack();
         if(File::exists(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName)))
             File::delete(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName));
-        return redirect()->back()->withErrors('Select image !');
+        return redirect()->back()->withErrors('Something Wrong !');
       }
    }
 
@@ -75,6 +75,39 @@ class ProductRepository
         'images'     => ProductPhoto::select('path','name')->get(),
         'product' => Product::whereId($id)->with('categories', 'photo')->firstOrFail()
       ];
+   }
+
+   public function update($request, $id)
+   {
+      $productPhoto = new ProductPhoto;
+      $category = new Category;
+      try{
+        DB::beginTransaction();
+         // add photo_id to request for FK product
+         $photoId = $productPhoto->decidedByNewFileOrOldPic($request);
+         if($photoId){
+
+            $request->request->add(['product_photo_id' => $photoId]);
+            $product = auth()->user()->products()->where('id', $id)->update([
+               $request->except('product_image_name', 'product_image', 'category')
+            ]);
+            // store categories and assign to category_product table
+            $category->storeCategories($request->input('category'), $product);
+         }
+         // upload file if exists in input and
+         if($productPhoto->hasFile)
+            $productPhoto->resizeAndUpload($request->file('product_image'));
+        DB::commit();
+        // transaction is ok
+        return redirect()->back()->withErrors('Successfully Updated');
+
+      }
+      catch(Exception $e){
+        DB::rollBack();
+        if(File::exists(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName)))
+            File::delete(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName));
+        return redirect()->back()->withErrors('Something Wrong !');
+      }
    }
 
    // search by category or brand

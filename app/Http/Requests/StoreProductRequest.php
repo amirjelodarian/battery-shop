@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class StoreProductRequest extends FormRequest
 {
@@ -16,12 +17,12 @@ class StoreProductRequest extends FormRequest
         return true;
     }
 
-    public function all($keys = NULL) 
+    public function all($keys = NULL)
     {
         $attributes = parent::all();
-        
-        $attributes['price'] = EnFa($attributes['price']);
-        
+
+        $attributes['price'] = Str::replace(',','',EnFa($attributes['price']));
+
         return $attributes;
     }
 
