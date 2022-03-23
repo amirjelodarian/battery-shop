@@ -30,11 +30,29 @@ class Category extends Model
         }
     }
 
+    public function updateCategories($categories, $productId)
+    {
+        // when updating , work this condition
+        $product = Product::whereId($productId)->first();
+        if($product->categories->count())
+            $product->categories()->detach();
+        // check if exists category just assign to category_product table
+        // otherwise create and assign
+        foreach ($categories as $category){
+            if(! static::whereName($category)->exists())
+                $category = static::create(['name' => $category]);
+            else
+                $category = static::whereName($category)->first();
+
+            $product->attachCategory($category);
+        }
+    }
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = EnFa($value, 'fa');
     }
-    
+
     public function getNameAttribute($value)
     {
         return EnFa($value, 'fa');

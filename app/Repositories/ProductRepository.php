@@ -24,41 +24,13 @@ class ProductRepository
    {
       return [
          'categories' => Category::select('name')->get(),
-         'images'     => ProductPhoto::select('path','name')->get()
+         'images'     => ProductPhoto::select('path','name')->orderByDesc('id')->lazy()
       ];
    }
 
    public function store($request)
    {
-      $productPhoto = new ProductPhoto;
-      $category = new Category;
-      try{
-        DB::beginTransaction();
-         // add photo_id to request for FK product
-         $photoId = $productPhoto->decidedByNewFileOrOldPic($request);
-         if($photoId){
-
-            $request->request->add(['product_photo_id' => $photoId]);
-            $product = auth()->user()->products()->create(
-               $request->except('product_image_name', 'product_image', 'category')
-            );
-            // store categories and assign to category_product table
-            $category->storeCategories($request->input('category'), $product);
-         }
-         // upload file if exists in input and
-         if($productPhoto->hasFile)
-            $productPhoto->resizeAndUpload($request->file('product_image'));
-        DB::commit();
-        // transaction is ok
-        return redirect()->back()->withErrors('Successfully Created');
-
-      }
-      catch(Exception $e){
-        DB::rollBack();
-        if(File::exists(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName)))
-            File::delete(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName));
-        return redirect()->back()->withErrors('Something Wrong !');
-      }
+        return $this->storeOrUpdate($request);
    }
 
    public function show($id)
@@ -72,42 +44,58 @@ class ProductRepository
    {
       return [
         'categories' => Category::select('name')->get(),
-        'images'     => ProductPhoto::select('path','name')->get(),
+        'images'     => ProductPhoto::select('path','name')->orderByDesc('id')->lazy(),
         'product' => Product::whereId($id)->with('categories', 'photo')->firstOrFail()
       ];
    }
 
    public function update($request, $id)
    {
-      $productPhoto = new ProductPhoto;
-      $category = new Category;
-      try{
+        return $this->storeOrUpdate($request, $id);
+   }
+
+   public function storeOrUpdate($request, $updateId = null)
+   {
+        $productPhoto = new ProductPhoto;
+        $category = new Category;
+        try{
         DB::beginTransaction();
-         // add photo_id to request for FK product
-         $photoId = $productPhoto->decidedByNewFileOrOldPic($request);
-         if($photoId){
-
+        // add photo_id to request for FK product
+        $photoId = $productPhoto->decidedByNewFileOrOldPic($request);
+        if($photoId){
             $request->request->add(['product_photo_id' => $photoId]);
-            $product = auth()->user()->products()->where('id', $id)->update([
-               $request->except('product_image_name', 'product_image', 'category')
-            ]);
-            // store categories and assign to category_product table
-            $category->storeCategories($request->input('category'), $product);
-         }
-         // upload file if exists in input and
-         if($productPhoto->hasFile)
-            $productPhoto->resizeAndUpload($request->file('product_image'));
-        DB::commit();
-        // transaction is ok
-        return redirect()->back()->withErrors('Successfully Updated');
+            if($updateId){
+                $product = auth()->user()->products()->whereId($updateId)->update(
+                    $request->except('product_image_name', 'product_image', 'category', '_token', '_method')
+                 );
+                 // store categories and assign to category_product table
+                 $category->updateCategories($request->input('category'), $updateId);
+            }
+            else{
+                $product = auth()->user()->products()->create(
+                    $request->except('product_image_name', 'product_image', 'category')
+                );
+                // store categories and assign to category_product table
+                $category->storeCategories($request->input('category'), $product);
+            }
 
-      }
-      catch(Exception $e){
+            // upload file if exists in input and
+            if($productPhoto->hasFile)
+                $productPhoto->resizeAndUpload($request->file('product_image'));
+            DB::commit();
+            // transaction is ok
+            return redirect()->back()->withErrors('Successfully');
+        }
         DB::rollBack();
-        if(File::exists(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName)))
-            File::delete(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName));
-        return redirect()->back()->withErrors('Something Wrong !');
-      }
+        return redirect()->back()->withErrors('Select Image !');
+
+        }
+        catch(Exception $e){
+            DB::rollBack();
+            if(File::exists(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName)))
+                File::delete(public_path('/' . $productPhoto->dirPath . $productPhoto->newUniqueFileName));
+            return redirect()->back()->withErrors('Something Wrong !');
+        }
    }
 
    // search by category or brand

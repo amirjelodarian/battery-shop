@@ -1896,18 +1896,28 @@ fieldset[disabled] .btn-theme {
 }
 
 .product-car {
+    overflow-y: hidden;
+    line-height: 10px;
+    height: 27px;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 175px;
+    max-width: 175px;
+}
+.product-car-wrapper{
     font-family: IRANSansM;
     color: #ff0000;
-    font-size: 15px;
-    line-height: 10px;
+    font-size: 13px;
     opacity: 0.7;
+    padding: 0px 3px;
 }
-
 .product-price {
     font-family: IRANSansB;
     font-size: 15px;
     color: #308ce8;
     opacity: 0.9;
+    margin-top: -10px;
 }
 .product-price span{
     font-family: IRANSansB;
@@ -2098,7 +2108,6 @@ fieldset[disabled] .btn-theme {
     opacity: 0.8 !important;
     transform: scale(1);
     width: 100%;
-    height: 166px;
     max-height: 166px;
     max-width: 176px;
 }
@@ -2197,16 +2206,26 @@ fieldset[disabled] .btn-theme {
     color: white;
     transition: .5s;
 }
-.edit-btn{
-    color:white;
-    font-family: IRANSansB;
+.edit-btn, .delete-btn{
+    font-family: 'IRANSansM';
+    color: white;
     text-align: center;
-    background-color: #ff0000;
     margin-top: 7px;
     transition: .5s;
+    width: 45px;
+    font-size: 11px;
+    display: inline-grid;
+    justify-content: center;
+    justify-items: center;
 }
-.edit-btn:hover{
-    background-color: gray;
+.edit-btn{
+    background-color: #777984;
+}
+.delete-btn{
+    background-color: #ff0000;
+}
+.edit-btn:hover, .delete-btn:hover{
+    background-color: #515769;
     color: white;
     transition: .5s;
 }
@@ -2264,6 +2283,9 @@ fieldset[disabled] .btn-theme {
 }
 .single-product{
     margin-top: 120px;
+}
+.single-product .product-car{
+    justify-content: right;
 }
 .image{
     text-align: center;
@@ -2364,4 +2386,24 @@ fieldset[disabled] .btn-theme {
 .edit-product-title{
     max-width: 280px !important;
 }
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #a6a7aa;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ff0000;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ff0000;
+  }
 /* endoverright */

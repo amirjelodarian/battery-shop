@@ -25,10 +25,13 @@
                <span class="title">رده خودرو :</span>&nbsp;<span class="title-answer">{{ $product->for_what }}</span>
             </p>
             <p>
-               <span class="title">مناسب برای :</span><span class="title-answer">
-                     @foreach($product->categories as $category)
-                        ({{ $category->name }})
-                     @endforeach
+               <span class="title">مناسب برای :</span>
+               <span class="title-answer">
+                <span class="product-car" id="product-car">
+                    @foreach($product->categories as $category)
+                        <span class="product-car-wrapper">({{ $category->name }})</span>
+                    @endforeach
+                </span>
                </span>
             </p>
             <p>

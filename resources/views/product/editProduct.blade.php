@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <div class="select-new-img">
-                            <button class="select-new-img-wrapper">انتخاب عکس جدید +</button>
+                            <button type="button" class="select-new-img-wrapper">انتخاب عکس جدید +</button>
                         </div>
                         <input type="file" id="product_image" class="hidden" name="product_image" />
                         <input type="text" class="hidden" value="{{ $product->photo->name }}" id="product_image_name" class="hidden" name="product_image_name" />
@@ -100,6 +100,7 @@
    @section('footerjs')
         <script>
             $(document).ready(function() {
+                document.getElementById('product_image').value = "";
                 $('.category').select2({
                     placeholder: 'ماشین انتخاب کنید',
                     allowClear: true,

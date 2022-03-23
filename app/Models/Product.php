@@ -33,6 +33,11 @@ class Product extends Model
         return $this->categories()->detach($category);
     }
 
+    public function syncCategory(Category $category)
+    {
+        return $this->categories()->sync($category);
+    }
+
     public function hasCategory($category)
     {
         if (is_string($category))

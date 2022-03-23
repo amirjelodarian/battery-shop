@@ -10,12 +10,17 @@
         <p class="product-title">
             <a href="{{ route('product.show', $product->id) }}">{{ $product->title  }}</a>
         </p>
-        <p class="product-car">
+        <p class="product-car" id="product-car">
             @foreach($product->categories as $category)
-                ({{ $category->name }})
+                <span class="product-car-wrapper">({{ $category->name }})</span>
             @endforeach
         </p>
         <div class="product-price"><span>قیمت : </span>{{ $product->price }}</div>
+        @can('editProduct')
+            <a href="{{ route('product.edit', $product->id) }}">
+                <button class="btn delete-btn">حذف</button>
+            </a>
+        @endcan
         <a href="{{ route('product.show', $product->id) }}">
             <button class="btn order-btn">سفارش</button>
         </a>
