@@ -19,6 +19,7 @@ class ProductController extends Controller
     {
         $this->middleware('can:storeProduct')->only('create', 'store');
         $this->middleware('can:editProduct')->only('edit');
+        $this->middleware('can:deleteProduct')->only('destroy');
     }
     /**
      * Display a listing of the resource.

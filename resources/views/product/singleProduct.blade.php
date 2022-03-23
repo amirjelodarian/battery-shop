@@ -25,18 +25,18 @@
                <span class="title">رده خودرو :</span>&nbsp;<span class="title-answer">{{ $product->for_what }}</span>
             </p>
             <p>
-               <span class="title">مناسب برای :</span>
-               <span class="title-answer">
-                <span class="product-car" id="product-car">
-                    @foreach($product->categories as $category)
-                        <span class="product-car-wrapper">({{ $category->name }})</span>
-                    @endforeach
-                </span>
-               </span>
-            </p>
-            <p>
                <span class="title">شرکت سازنده :</span>&nbsp;<span class="title-answer">{{ $product->company }}</span>
             </p>
+            <p>
+                <span class="title">مناسب برای :</span>
+                <span class="title-answer">
+                 <span class="product-car" id="product-car">
+                     @foreach($product->categories as $category)
+                         <span class="product-car-wrapper">({{ $category->name }})</span>
+                     @endforeach
+                 </span>
+                </span>
+             </p>
             @can('editProduct')
                 <a href="{{ route('product.edit', $product->id) }}">
                     <button class="btn edit-btn">ویرایش</button>

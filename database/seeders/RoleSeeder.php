@@ -16,8 +16,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         Role::factory()->count(1)->create();
-        $permission = Permission::whereName('storeProduct')->first();
         $role = Role::whereName('administrator')->first();
-        $role->givePermissionTo($permission);
+        $role->permissions()->attach(Permission::all());
     }
 }

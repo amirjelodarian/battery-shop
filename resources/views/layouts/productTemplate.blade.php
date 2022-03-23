@@ -16,14 +16,14 @@
             @endforeach
         </p>
         <div class="product-price"><span>قیمت : </span>{{ $product->price }}</div>
-        @can('editProduct')
-            <a href="{{ route('product.edit', $product->id) }}">
+        @can('deleteProduct')
+            <a href="{{ route('product.destroy', $product->id) }}">
                 <button class="btn delete-btn">حذف</button>
             </a>
         @endcan
-        <a href="{{ route('product.show', $product->id) }}">
-            <button class="btn order-btn">سفارش</button>
-        </a>
+            <a href="{{ route('product.show', $product->id) }}">
+                <button class="btn order-btn">سفارش</button>
+            </a>
         @can('editProduct')
             <a href="{{ route('product.edit', $product->id) }}">
                 <button class="btn edit-btn">ویرایش</button>

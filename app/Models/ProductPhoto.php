@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Image;
 
@@ -78,8 +79,11 @@ class ProductPhoto extends Model
 
     public function resizeAndUpload($orgImg)
     {
+        if(! file_exists(public_path('img/products')))
+            File::makeDirectory(public_path('img/products'));
+
         $thumbImg = Image::make($orgImg);
-        $thumbImg->resize(310, 320)->save($this->dirPath . $this->newUniqueFileName);
+        $thumbImg->resize(310, 320)->save($this->dirPath . $this->newUniqueFileName, 100);
         // $request->file('product_image')->move($this->dirPath, $this->newUniqueFileName);
     }
 

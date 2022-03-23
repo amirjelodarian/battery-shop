@@ -54,6 +54,12 @@ class ProductRepository
         return $this->storeOrUpdate($request, $id);
    }
 
+   public function destroy($id)
+   {
+       Product::destroy($id);
+       return redirect()->back();
+   }
+
    public function storeOrUpdate($request, $updateId = null)
    {
         $productPhoto = new ProductPhoto;
@@ -64,7 +70,7 @@ class ProductRepository
         $photoId = $productPhoto->decidedByNewFileOrOldPic($request);
         if($photoId){
             $request->request->add(['product_photo_id' => $photoId]);
-            if($updateId){
+            if($updateId !== null){
                 $product = auth()->user()->products()->whereId($updateId)->update(
                     $request->except('product_image_name', 'product_image', 'category', '_token', '_method')
                  );

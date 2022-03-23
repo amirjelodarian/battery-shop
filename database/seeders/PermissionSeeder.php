@@ -7,6 +7,11 @@ use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
 {
+    private $permission = [
+        'storeProduct' => 'Store Product',
+        'editProduct' => 'Edit Product',
+        'deleteProduct' => 'Delete Product'
+    ];
     /**
      * Run the database seeds.
      *
@@ -14,6 +19,10 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        Permission::factory()->count(1)->create();
+        foreach($this->permission as $name => $label)
+            Permission::create([
+                'name'  => $name,
+                'label' => $label
+            ]);
     }
 }
