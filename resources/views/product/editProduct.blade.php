@@ -84,6 +84,13 @@
 
                     </div>
                 </div>
+                @can('deleteProduct')
+                    <form method='POST' class="delete-product-form" action="{{ route('product.destroy', $product->id) }}">
+                        @csrf
+                        @method('delete')
+                        <button class="btn delete-btn" id="delete-product-btn">حذف</button>
+                    </form>
+                @endcan
              </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 battery-order-call">
                 <p class="call-for-order-text">جهت سفارش با این شماره تماس بگیرید</p>

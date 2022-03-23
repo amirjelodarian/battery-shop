@@ -57,7 +57,7 @@ class ProductRepository
    public function destroy($id)
    {
        Product::destroy($id);
-       return redirect()->back();
+       return redirect(route('product.index'));
    }
 
    public function storeOrUpdate($request, $updateId = null)

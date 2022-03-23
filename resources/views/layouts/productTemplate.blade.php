@@ -17,9 +17,11 @@
         </p>
         <div class="product-price"><span>قیمت : </span>{{ $product->price }}</div>
         @can('deleteProduct')
-            <a href="{{ route('product.destroy', $product->id) }}">
-                <button class="btn delete-btn">حذف</button>
-            </a>
+            <form method='POST' class="delete-product-form" action="{{ route('product.destroy', $product->id) }}">
+                @csrf
+                @method('delete')
+                <button class="btn delete-btn" id="delete-product-btn">حذف</button>
+            </form>
         @endcan
             <a href="{{ route('product.show', $product->id) }}">
                 <button class="btn order-btn">سفارش</button>

@@ -5109,6 +5109,9 @@ fieldset[disabled] .btn-theme {
     color: white;
     transition: .5s;
 }
+.delete-product-form{
+    display: inline-block;
+}
 .edit-btn, .delete-btn{
     font-family: 'IRANSansM';
     color: white;

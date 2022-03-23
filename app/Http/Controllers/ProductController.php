@@ -120,6 +120,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return resolve(ProductRepository::class)->destroy($id);
     }
 }

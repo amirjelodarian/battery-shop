@@ -37,10 +37,18 @@
                  </span>
                 </span>
              </p>
+
             @can('editProduct')
                 <a href="{{ route('product.edit', $product->id) }}">
                     <button class="btn edit-btn">ویرایش</button>
                 </a>
+            @endcan
+            @can('deleteProduct')
+                <form method='POST' class="delete-product-form" action="{{ route('product.destroy', $product->id) }}">
+                    @csrf
+                    @method('delete')
+                    <button class="btn delete-btn" id="delete-product-btn">حذف</button>
+                </form>
             @endcan
          </div>
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 battery-order-call">
