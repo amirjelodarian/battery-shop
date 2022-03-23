@@ -33,7 +33,7 @@ $userRole = [
     'amirjelodarian@gmail.com' => 'administrator'
 ]
 
-instead (amirjelodarian@gmail.com) this mail you can replace yor gmail
+instead (amirjelodarian@gmail.com) this mail you can replace your gmail
 
 this for before register
 
