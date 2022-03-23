@@ -1,5 +1,7 @@
 ## About Milad Battery
 
+<img src="milad-battery.png" alt="Milad Battery" />
+
 Milad Battery is a place for CRUD product (battery) and show to users , at first we don't have electronic pay , however when our site come up and terended , so we add electronic pay ;)
 
 Site Utilities
